@@ -37,14 +37,13 @@ public class czCareers_Automation {
     @BeforeMethod
     public void setup() {
     	
-    	//USED BELOW BEFORE DEPLOYMENT BECAUSE
+    	
         //String chromePath = "/Users/collins.eban/Documents/chromedriver.exe";
         //System.setProperty("webdriver.chrome.driver", chromePath);
-        
+    	//System.setProperty("webdriver.chrome.driver", "user.dir");
        
-        //Using web driver manager library to pull driver details from a different computer
         WebDriverManager.chromedriver().setup();
-        //System.setProperty("webdriver.chrome.driver", "user.dir");
+        
         ChromeOptions ops = new ChromeOptions();
         ops.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(ops);
@@ -94,7 +93,7 @@ public class czCareers_Automation {
         test.log(Status.INFO, "Check if Jobs found matches expected value");
         int jobsFoundCount = driver.findElements(By.xpath("//span[text() = 'Research & Development']")).size();
 
-        // Read expected job count from external data source (e.g., Excel, CSV)
+        
         //int expectedJobCount = 12; issue with this implementation is that the expected could change
         int expectedJobCount = jobsFoundCount;
 
@@ -106,9 +105,6 @@ public class czCareers_Automation {
             test.log(Status.INFO, "Expected: " + expectedJobCount);
             test.log(Status.INFO, "Actual: " + jobsFoundCount);
 
-            // Capture screenshot and attach to Extent Report
-//            String screenshotPath = captureScreenshot();
-//            test.addScreenCaptureFromPath(screenshotPath);
         }
         
         //PRINTING ON CONSOLE
@@ -127,6 +123,7 @@ public class czCareers_Automation {
         //driver.quit();
     }
 
+    //SCREENSHOT
     private String captureScreenshot() throws IOException {
         File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String screenshotPath = System.getProperty("user.dir") + "/Screenshots/" + System.currentTimeMillis() + ".png";
